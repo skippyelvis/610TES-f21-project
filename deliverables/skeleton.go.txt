@@ -1,0 +1,92 @@
+package main
+
+import (
+    "fmt"
+    "bufio"
+    "log"
+    "os"
+    // Part 3: import another standard package
+)
+
+
+// Counter is the data structure we use to track frequencies
+// 
+// Part 1: Declare three fields for Counter: a map for mapping
+// IP addresses to their frequencies, and two variables to store
+// the IP and visit count of the most frequent visitor
+//
+// Part 3: Add another field to Counter to aid with mutual exclusion
+type Counter struct {
+    // fill in Part 1 and Part 3 fields here
+}
+
+// Incremement the count value of a single IP address 
+//
+// Part 2: Implement the counting function for our counter, including
+// updating the count map and (possibly) the IP and count of the top visitor
+//
+// Part 3: Implement mutual exclusion so we can count concurrently
+func (c *Counter) countIP(ip string) int {
+}
+
+// Incremement the counter value for an array of IP addresses
+//
+// Part 2: Iterate through `ips` and call `countIP` on each
+func (c *Counter) countIPS(ips []string) {
+}
+
+// Break up array of IPs into N chunks and count each chunk concurrently
+//
+// Part 3: Use `chunkArray` helper function to break ips into chunks and
+// rewrite call to `countIPs` as concurrent goroutine. Must wait on results
+func (c *Counter) countIPsConcurrently(ips []string, nroutines int) {
+}
+
+
+// Helper code: Split array into N evenly sized (when possible) chunks
+// Returns two-dimensional array where each element is indices of chunk
+//                  {chunk_start, chunk_end}
+// e.g. chunkArray({"a","b","c","d","e","f","g"}, 3) --> {{0,3}, {3,6}, {6,7}}
+func chunkArray(foo []string, n int) [][]int {
+    chunks := make([][]int, 0)
+    chunkSize := (len(foo) + n - 1) / n
+    for start := 0; start < len(foo); start += chunkSize {
+        end := start + chunkSize
+        if end > len(foo) {
+            end = len(foo)
+        }
+        chunks = append(chunks, []int{start,end})
+    }
+    return chunks
+}
+
+var counter = // Part 1: Create Counter instance
+var ips // Part 0: Create ips array
+
+func main() {
+    
+    // Part 0: reading data line by line
+    file, err := os.Open("data.txt")
+    if err != nil {
+        log.Fatal(err)
+    }
+    defer file.Close()
+
+    scanner := bufio.NewScanner(file)
+    for scanner.Scan() {
+        line := scanner.Text()
+        // Part 0: add this `line` to `ips`
+    }
+    if err := scanner.Err(); err != nil {
+        log.Fatal(err)
+    }
+    
+    // Part 2: call counter on IPs
+    // make sure to comment this line out for during part 3
+
+    // Part 3: call counter concurrently on 10 chunks
+
+    // Part 5: output counts and top count
+    fmt.Println(counter.topFreq)
+    fmt.Println(counter.topVisitor)
+}
